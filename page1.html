@@ -103,11 +103,13 @@ $(document).ready(function () {
                 }
                 // 图片解析成数组
                 var arrList = arrObj.split(';');
+                var arrNewList=[];
+                arrNewList = replaceEmptyItem(arrList);
                 html +='<div class="picture_list clearfix">';
                     html +='<h3 class="conmmod_tarfet_title">指标相关图片</h3>';
                     html +='<ul>';
-                        
-                        for( var j=0;j<arrList.length-1;j++){
+
+                        for( var j=0;j<arrNewList.length;j++){
                             html +='<li><img class="page_picture" src="http://192.168.0.43:8080'+arrList[j]+'" alt="" /></li>';
                         } 
                                                
@@ -126,7 +128,17 @@ $(document).ready(function () {
     });
     // ajax  结束
 
-
+    // 去除数组空的字符或者null
+    function replaceEmptyItem(arr){
+        for(var k=0,len=arr.length;k<len;k++){
+            if(!arr[k]|| arr[k]==''){
+                arr.splice(k,1);
+                len--;                             
+            }
+        }
+        return arr
+    }
+    
     // 点击图片 放大效果
     function ampliImg(){
         // 图片放大
