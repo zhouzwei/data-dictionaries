@@ -16,33 +16,9 @@
 
 </head>
 <body>
-<!-- <section class="corner-mark">
-    <i class="iconfont i-icon icon-shouye"></i>首页&nbsp;&nbsp;&gt;&nbsp;&nbsp;一级指标&nbsp;&nbsp;&gt;&nbsp;&nbsp;二级指标
-</section> -->
 <section class="main">
     <!-- 指标 -->
     <div class="conmmod_tarfet_box" id="conmmod_tarfet_box">
-        <!-- 指标定义 -->
-        <!-- <div class="conmmod_tarfet">
-            <h3 class="conmmod_tarfet_title">指标定义</h3>
-            <div class="conmmod_tarfet_text">
-                <textarea name="" id="">1111111111111111111111</textarea>
-            </div>
-        </div> --> 
-        <!-- 计算方式 -->
-        <!-- <div class="conmmod_tarfet">
-            <h3 class="conmmod_tarfet_title">计算方式</h3>
-            <div class="conmmod_tarfet_text">
-                <textarea name="" id="">22222222222222</textarea>
-            </div>
-        </div>  -->
-        <!-- 数据来源 -->
-        <!-- <div class="conmmod_tarfet">
-            <h3 class="conmmod_tarfet_title">数据来源</h3>
-            <div class="conmmod_tarfet_text">
-                <textarea name="" id="">3333333333333333</textarea>
-            </div>
-        </div>  -->
         
     </div>
 
@@ -145,10 +121,7 @@ $(document).ready(function () {
         $('.page_picture').on('click',function(){
             var srcImg=$(this).attr('src')
             $('.big_picture_content').show();
-            $('.big_picture').attr('src', srcImg);
-            //var imgWidth = $('.big_picture').width();
-            //var imgHeight = $('.big_picture').height();
-            // $('.big_picture').css({'margin-left':-imgWidth/2,'margin-top':-imgHeight/2});
+            $('.big_picture').attr('src', srcImg); 
         })
         // 关闭图片放大功能
         $('.close_btn').on('click',function(){
