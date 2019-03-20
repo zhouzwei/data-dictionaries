@@ -1,0 +1,180 @@
+body {
+    padding: 12px 30px;
+}
+
+.head span {
+    font-size: 12px;
+}
+
+.head span.icon-shouye::before {
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.head .catalog::before {
+    content: '>';
+    margin: 0 15px;
+}
+
+.head {
+    margin-bottom: 12px;
+}
+
+.state-box {
+    justify-content: space-between;
+}
+
+.state-box .state {
+    overflow: hidden;
+    width: 25%;
+    max-width: 392px;
+    min-width: 200px;
+    margin-right: 1.25%;
+    color: #fff;
+}
+
+.state-box .state:last-child {
+    margin-right: 0;
+}
+
+.state-box .state .title {
+    font-size: 20px;
+    margin-top: 25px;
+    text-indent: 20px;
+}
+
+.state-box .state .num {
+    font-size: 32px;
+}
+
+.state-box .state .total {
+    font-size: 20px;
+    text-indent: 20px;
+    line-height: 3;
+    width: calc(100% - 2px);
+    margin-left: 1px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.state-box .state .total span:first-child {
+    margin-right: 20px;
+}
+
+.state-box .state .data {
+    flex-direction: column;
+    justify-content: space-between;
+    top: 0;
+}
+
+.data-box {
+    margin: 20px 0;
+    border-radius: 3px;
+    border: 1px solid #e6e6e6;
+}
+
+.data-box .data-table {
+    min-height: 382px;
+}
+
+.data-box .tabBox .tab-list {
+    height: 70px;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.data-box .tabBox .tab-list .tab-items {
+    margin-left: 50px;
+}
+
+.data-box .tabBox .tab-list .tab-items:first-child {
+    margin-left: 20px;
+}
+
+.data-box .tabBox .tab-list .tab-items a {
+    display: block;
+    cursor: pointer;
+    color: #858585;
+}
+
+.data-box .tabBox .tab-list .tab-items a::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    bottom: -25px;
+    left: 50%;
+    margin-left: -25%;
+    -webki-transition: transform .2s ease;
+    -moz-transition: transform .2s ease;
+    -ms-transition: transform .2s ease;
+    transition: transform .2s ease;
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+    background-color: #07579f;
+}
+
+.data-box .tabBox .tab-list .tab-items a:hover,
+.data-box .tabBox .tab-list .tab-items a.active {
+    color: #07579f;
+}
+
+.data-box .tabBox .tab-list .tab-items a:hover::after,
+.data-box .tabBox .tab-list .tab-items a.active::after {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.data-box .data-table .statistical-table {
+    margin-top: 15px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.data-box .data-table table {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.data-box .data-table .statistical-table tr {
+    height: 50px;
+}
+
+.data-box .data-table .statistical-table tbody tr:nth-child(2n) {
+    background-color: #f2f7fa;
+}
+
+.data-box .data-table .statistical-table thead {
+    color: #fff;
+    background-color: #07579f;
+}
+
+.data-box .chart-box {
+    padding: 30px 0;
+}
+
+.data-box .time {
+    -webkit-appearance: none;
+    display: none;
+}
+
+.data-box .filter {
+    right: 20px;
+    top: 28px;
+}
+
+.data-box .time~label {
+    padding: 7px 16px;
+    margin-left: 20px;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.data-box .time~label.active {
+    border: 1px solid #07579f;
+    color: #07579f;
+}

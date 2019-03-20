@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<title>云聚付商户管理后台</title>
+<link rel="stylesheet" type="text/css" href="css/base.css" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<link rel="stylesheet" type="text/css" href="icon-font/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="css/small-size.css" />
+
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+
+</head>
+<body style="overflow:hidden;">
+ <!-- 顶部代码 -->
+    <header>
+        <section class="navbar-wrapper flex transition pr">
+            <!-- 导航栏 + 搜索指标按钮等 开始 -->
+            <div class="navbar-box transition">               
+                <!-- 搜索指标按钮 开始 -->
+                <section class="topNav clearfix">
+                    <div class="background_map"></div>
+                    <!-- logo -->
+                    <div class="logo">
+                        <img src="images/logo.png" height="97" width="882" alt="" />
+                    </div>
+                    <div class="topNav_search">
+                        <div class="tarfet_type" id="selectBox">                                                   
+                        </div>
+                        <div class="tarfet_type">
+                            <input id="indexContent" class="tarfet_type_name" type="text" placeholder="请输入指标名称"/>
+                        </div>
+                        <div class="tarfet_type">
+                            <div class="tarfet_type_btn" id="btnSearch" onclick="btnSearch();">搜索指标</div>
+                        </div>
+                    </div>
+                </section>
+                <!-- 搜索指标按钮 结束 -->
+                <!-- 导航栏 开始 -->
+                <nav id="navbar" stytle="background:url(images/index/userbar.png) repeat-x;">
+                    <div class="tabNav max_height">
+                        <div class="silder_swiper">&gt;&gt;</div>
+                        <ul class="acrossTab max_height flex fz_14" id="acrossTab">
+                            <li class="box pr transition box-sizing active navbar-item" data-id='0' data-title='首页'>
+                                <span class="tab-name">首页</span>
+                                <span class="close tc transition" onclick="closeNav();">✖</span>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- 导航栏 结束 -->
+            </div>
+            <!-- 搜索指标按钮 结束 -->
+        </section>
+    </header>
+    <!-- 侧边栏代码 -->
+    <section class="flex wrap transition pr max_height">
+        <aside id="aside" class="aside-box pr transition">
+            <div class="menu tl">
+                <dl id="menudl" class="menudl"></dl>
+            </div>
+        </aside>
+        <!-- 右边iframe块代码 -->
+        <section class="transition iframe-box  box-sizing pr max_height" style="height:100%;">
+            <div class="show_iframe max_height" >
+                <!-- 做完分离为单独页面,使用iframe引入 -->
+                <div class="iframe-content max_height" data-id='0' data-title='首页' title="首页" data-href='welcome.html'>
+                    <iframe src="welcome.html"></iframe>
+                </div>
+            </div>
+        </section>
+    </section> 
+    <!-- 点击搜索 预加载 -->
+    <div class="loading_box">
+        <div class="loading loadingRun">
+            
+        </div>
+    </div>
+    <!-- 右键事件 -->
+    <div id="menu_close">
+        <p class="menu_p1">关闭所有</p>
+        <p>关闭其他</p >
+    </div>   
+</body>
+</html>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+    var indexT = index().index;    
+    indexT.init();
+
+</script>
+
+
+<!-- 左侧指标菜单栏 -->
+<script>
+var pathUrl = "";
+var urlHref = "page1.html";
+/**
+ * 初始化菜单
+ */
+function initMenu(){
+    $.ajax({
+        type:'post',
+        url:pathUrl+"knowledge/getalldata",
+        dataType:'json',
+        async: true, 
+        success:function(result){
+            if(result.retCode=='1000'){
+                console.log(result.retMsg);
+                return 
+            }else if(result.retCode=='9999'){
+                console.log(result.retMsg);
+                return 
+            }
+            var data = result.result;
+            $("#menudl").html(buildMenu(data));    // 调用函数，实现页面挂载  
+            respondClick();       
+        },
+        error:function(){           
+            
+        }
+    });
+}
+/**
+ * 搜索指标栏
+ */
+function initIndexSeach(){
+    $.ajax({
+        type:'post',
+        url:pathUrl+"knowledge/getIndexType",
+        dataType:'json',
+        async: true, 
+        success:function(result){
+            var data=result.result;
+            var html='';
+            function buildTarfetType(data){
+                var dataLen = data.length;
+                html +='<span class="triangle"></span>';
+                html +='<select name="" id="select">';
+                html +='<option value="">请点击并选择指标类型</option>';
+                for(var i=0;i<dataLen;i++){
+                    html +='<option value="'+data[i].qualityIndexId+'">'+data[i].indexName+'</option>';
+                }
+                html +='</select>';
+                return html;
+            }        
+            $('#selectBox').html( buildTarfetType(data) );           
+        },
+        error:function(){
+            
+        }
+        
+    });
+}
+
+
+/*
+ * 搜索按钮事件
+ */
+function btnSearch(){
+    var values=$("#indexContent").val();
+    var selects=$("#select").val();
+    var jsonData ={};
+    jsonData.indexType = selects;
+    jsonData.indexName = values;
+    $.ajax({
+        type:'post',
+        url:pathUrl+'knowledge/getalldata',
+        dataType:'json',
+        async: true, 
+        data:jsonData,
+        success:function(result){
+            var data=result.result;
+            // console.log(result) 
+            if(result.retCode=='0000'){
+                $('.loading_box').stop().show(30).delay(1000).hide(30);  // 预加载 loading
+                $("#menudl").html(buildMenu(data));
+                respondClick(); // 调用箭头
+                $('.arrow_lt').addClass('onArrowLt');
+                if(flagId !='' && flag==1){
+                    var target = document.getElementById('indexId_'+flagId);
+                    console.log(target)
+                    var menuDl = document.getElementById('menudl');
+                    var obj={
+                        listTitle: document.getElementsByClassName('list-title'),
+                        menuOption: document.getElementsByClassName('menu-option')
+                    }
+                    let listTitle = menuDl.getElementsByClassName('list-title')[0];                  
+                    removeClass(obj.menuOption, 'remove', 'active', target);
+                    removeClass(obj.listTitle, 'remove', 'selected', listTitle);
+                    indexT.eventList.addNode(target);
+                    indexT.eventList.increaseIframe(target);
+
+                    $("#indexContent").val("");
+                    $("#select").val("");
+                    $('#aside .menu dd').show();
+                    $('.list-ul').show();                    
+                }else{
+                    $('#aside .menu dd').show();
+                    $('.list-ul').show();
+                };
+            }                       
+            
+        },
+        error:function(){   
+
+        }
+    });
+}
+/*
+ * 导航栏关闭某个是调用溢出滚动事件
+ */
+function closeNav(){
+    sliderSwiper();
+    //$('.silder_swiper').stop().hide(30);
+}
+
+/**
+ * 响应箭头事件
+ */
+function respondClick(){
+    // $('.menu_nav').on('click',function(){
+    //     sliderSwiper();
+    // });
+    $('.list-title').on('click',function(){
+        $(this).parents('dt').siblings('dd').toggle(100);
+    });
+    // 左侧箭头点击事件
+    $('.arrow_lt').on('click',function(event) {
+        $(this).toggleClass('onArrowLt');
+        $(this).parents('a').siblings('.list-ul').toggle(100);
+        event.stopPropagation();
+    });
+    // 左侧栏 点击展开、隐藏下级事件
+    $('.menu_nav').on('click',function(){
+        $(this).siblings('.list-ul').toggle(100);
+        $(this).find('.arrow_lt').toggleClass('onArrowLt');
+        sliderSwiper();
+    });
+}
+
+var flag = 0;      //flag=1的才是匹配到的，flag=0的是没匹配到的
+var flagId = "";
+/**
+ * 循环左侧菜单的其中的一个值，拼接正确对应的html
+ */
+function eachNode(data){
+    var Html ="";
+    var dataLen = data.length;  
+    for(var i=0;i<dataLen;i++){
+        Html +='<li class="menu-item pr">';
+        Html +='<a href="javascript:void(0)" data-href="'+urlHref+'?'+data[i].qualityIndexId+'='+data[i].qualityIndexId+'" class="menu-option menu_nav" data-title='+data[i].indexName+' data-id="indexId_'+data[i].qualityIndexId+'" id="indexId_'+data[i].qualityIndexId+'" title="'+data[i].indexName+'">'+data[i].indexName+'<span class="arrow_lt"></span></a>' ;
+        Html +='<ul class="list-ul pr">';
+
+        if(flag == 0){
+            flag = data[i].flag;
+            if(flag == 1 && $("#indexContent").val()!='' || $("#select").val()!=''){
+                 flagId = data[i].qualityIndexId;                   
+            }
+        }
+        if( data[i].childIndexs!=undefined && data[i].childIndexs!=null && data[i].childIndexs.length>0 ){           
+            Html += eachNode(data[i].childIndexs);
+        }            
+        Html +='</ul>'
+        Html +='</li>'
+    }                   
+    return Html;              
+}
+/**
+ * 初始化菜单
+ * 
+ */
+function buildMenu(data){    
+    flag =0,flagId =""; 
+    var  dataHtml ="";     
+    var dataLen = data.length;              
+    dataHtml +='<dt class="fz_14 pr"><a href="javascript:void(0)" data-href="javascript:;" data-title="数据字典" title="数据字典" data-id="1" class="list-title selected box-sizing" ><i class="pa icon iconfont icon-dailishangguanli aside-icon"></i>数据字典</a></dt>'
+    dataHtml +='<dd class="transition">'
+    dataHtml +='<ul class="menu-list fz_14">'
+    // 递归函数调用           
+    dataHtml +=eachNode(data)   
+    dataHtml +='</ul>'                  
+    dataHtml +='</dd>'              
+    return dataHtml;
+}
+
+$(document).ready(function () { 
+    initMenu();
+    initIndexSeach();
+    
+});
+/*
+ * 判断导航栏是否溢出 li
+ * 如果溢出 提示或者出现可滚动li 的箭头
+ */
+function sliderSwiper(){
+    var acrossTab = document.getElementById('acrossTab');
+    var navLi = acrossTab.getElementsByTagName('li');
+    for( var i=0;i<navLi.length+1;i++){
+        // var num = (navLi[0].offsetWidth*i - acrossTab.offsetWidth);
+        var n;
+        if( navLi[0].offsetWidth*i > acrossTab.offsetWidth ){
+            // alert('导航条内容已经溢出，请关闭一些')
+            $('.silder_swiper').stop().show(300);
+            var number=0;
+            $('.silder_swiper').on('click',function(){                
+                number--;
+                if(number<n+1){
+                    number=navLi.length+1;
+                }
+                $('#acrossTab').stop().animate({left:-( (number-n-1)*(navLi[0].offsetWidth) )},500);
+            })
+        }else{
+            $('.silder_swiper').stop().hide(300);
+            n=i;
+        } 
+    }
+}
+
+
+/*
+ * 关闭导航栏所有 和 保留当前的js
+ */
+function closeAll(){
+    // 右键事件重写
+    var menu = document.getElementById("menu_close");
+    var navbar = document.getElementById("navbar"); 
+    navbar.oncontextmenu = function(e) {
+        var e = e || window.event;
+        // 鼠标点的坐标
+        var oX = e.clientX;
+        var oY = e.clientY;
+        // 菜单出现后的位置
+        menu.style.display = "block";
+        menu.style.left = oX + "px";
+        menu.style.top = oY + "px";
+        // 阻止浏览器默认事件
+        return false;  // 一般点击右键会出现浏览器默认的右键菜单，写了这句代码就可以阻止该默认事件。
+    }
+    document.onclick = function(e) {
+        var e = e || window.event;
+        menu.style.display = "none"
+    }
+    menu.onclick = function(e) {
+        var e = e || window.event;
+        e.cancelBubble = true;
+    }
+    // 点击右键关闭所有
+    $("#menu_close p:eq(0)").click(function () {
+        $(".acrossTab").find("li").not($(".acrossTab li:eq(0)")).remove();  // 过滤掉第一个其他隐藏
+        $(".show_iframe").find(".iframe-content").not($(".show_iframe .iframe-content:eq(0)")).remove(); // 删除src引入的html
+        $(".show_iframe .iframe-content").removeClass('hidden'); // 让首页home.html显示
+        $(".acrossTab li:eq(0)").addClass('active'); // 让首页文字有颜色
+        $("#menu_close").hide(); // 右键菜单
+        $('#acrossTab').css('left', '00');
+        $('.silder_swiper').stop().hide(300);
+        $('.menu-option').removeClass('active');
+    })
+    // 点击右键关闭其他 
+    $("#menu_close p:eq(1)").click(function () {
+        $('#acrossTab').css('left', '00');
+        $('.silder_swiper').stop().hide(300);
+        var lis=$(".acrossTab").find("li");
+        var cons=$(".show_iframe").find('.iframe-content');
+        if(lis.length>=1){
+            $(".acrossTab").find("li").not($(".acrossTab .active")).not($(".acrossTab li:eq(0)")).remove();
+            $("#menu_close").hide(); // 右键菜单
+        }
+        // 有active的li页面则显示对应的页面
+       if(cons.length>=1){
+           $(".show_iframe").find('.hidden').not($(".show_iframe .iframe-content:eq(0)")).remove();
+           $("#menu_close").hide(); // 右键菜单
+              
+        }
+    })
+}
+closeAll();
+
+
+
+</script>
+
+

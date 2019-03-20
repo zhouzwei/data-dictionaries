@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<title>云聚付商户管理后台</title>
+<link rel="stylesheet" type="text/css" href="css/base.css" />
+<link rel="stylesheet" type="text/css" href="icon-font/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<style type="text/css">
+
+
+</style>
+
+
+</head>
+<body>
+<!-- <section class="corner-mark">
+    <i class="iconfont i-icon icon-shouye"></i>首页&nbsp;&nbsp;&gt;&nbsp;&nbsp;一级指标&nbsp;&nbsp;&gt;&nbsp;&nbsp;二级指标
+</section> -->
+<section class="main">
+    <!-- 指标 -->
+    <div class="conmmod_tarfet_box" id="conmmod_tarfet_box">
+        <!-- 指标定义 -->
+        <!-- <div class="conmmod_tarfet">
+            <h3 class="conmmod_tarfet_title">指标定义</h3>
+            <div class="conmmod_tarfet_text">
+                <textarea name="" id="">1111111111111111111111</textarea>
+            </div>
+        </div> --> 
+        <!-- 计算方式 -->
+        <!-- <div class="conmmod_tarfet">
+            <h3 class="conmmod_tarfet_title">计算方式</h3>
+            <div class="conmmod_tarfet_text">
+                <textarea name="" id="">22222222222222</textarea>
+            </div>
+        </div>  -->
+        <!-- 数据来源 -->
+        <!-- <div class="conmmod_tarfet">
+            <h3 class="conmmod_tarfet_title">数据来源</h3>
+            <div class="conmmod_tarfet_text">
+                <textarea name="" id="">3333333333333333</textarea>
+            </div>
+        </div>  -->
+        
+    </div>
+
+    <!-- 点击小图时候 放大图片效果 -->
+    <section class="big_picture_content">
+        <!-- 关闭按钮 -->
+        <div class="close_btn">
+            <span></span>
+            <span></span>
+        </div>
+        <!-- 旋转按钮 -->
+        <div class="roate_box">
+            <div class="roate_square"></div>
+            <div class="roate_arrow"></div>
+        </div>
+        <div class="pictures">
+            <img class="big_picture" src="" alt="" />
+        </div>
+    </section>
+</section>
+
+
+</body>
+</html>
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    // ajax  开始
+    var str = window.location.href;
+    var id=str.split('=');
+    var urlData2 = "";
+    $.ajax({
+        type:'post',
+        url:urlData2,
+        dataType:'json',
+        data:{'qualityIndexId':id[1]},
+        async: true, 
+        success:function(result){
+            var data=result.result;
+            var html = "";
+            function buildTarfet(data){
+                if(data.indexDetail !=null){
+                    var dataLen = data.indexDetail.length;
+                    for(var i=0;i<dataLen;i++){
+                        html +='<div class="conmmod_tarfet">';
+                            html +='<h3 class="conmmod_tarfet_title">'+data.indexDetail[i].tagName+'</h3>';
+                            html +='<div class="conmmod_tarfet_text">';
+                                html +='<textarea name="" id="" readonly="readonly" >'+data.indexDetail[i].labelContent+'</textarea>';
+                            html +='</div>';
+                        html +='</div>';
+                    }
+                }
+                // 图片
+                var arrObj = data.indexImg;
+                // 判断是否有图片
+                if(arrObj==null || arrObj==undefined || arrObj.length<=0){
+                    return html;
+                }
+                // 图片解析成数组
+                var arrList = arrObj.split(';');
+                html +='<div class="picture_list clearfix">';
+                    html +='<h3 class="conmmod_tarfet_title">指标相关图片</h3>';
+                    html +='<ul>';
+                        
+                        for( var j=0;j<arrList.length-1;j++){
+                            html +='<li><img class="page_picture" src="http://192.168.0.43:8080'+arrList[j]+'" alt="" /></li>';
+                        } 
+                                               
+                    html +='</ul>';
+                html +='</div>';
+                return html;               
+
+            }
+            $('#conmmod_tarfet_box').html( buildTarfet(data) );
+            ampliImg();
+        },
+        error:function(){
+            
+        }
+        
+    });
+    // ajax  结束
+
+
+    // 点击图片 放大效果
+    function ampliImg(){
+        // 图片放大
+        $('.page_picture').on('click',function(){
+            var srcImg=$(this).attr('src')
+            $('.big_picture_content').show();
+            $('.big_picture').attr('src', srcImg);
+            //var imgWidth = $('.big_picture').width();
+            //var imgHeight = $('.big_picture').height();
+            // $('.big_picture').css({'margin-left':-imgWidth/2,'margin-top':-imgHeight/2});
+        })
+        // 关闭图片放大功能
+        $('.close_btn').on('click',function(){
+            $('.big_picture_content').hide();
+        });
+        $('.big_picture').on('click',function(){
+            $('.big_picture_content').hide();
+        });
+        //旋转按钮
+        var n=0;
+        $('.roate_box').on('click',function(){
+            n=n+45;
+            $('.pictures').css({'transform':'rotate('+n+'deg)'});
+        });
+    }
+});
+</script>
+
+
+
+
+
+

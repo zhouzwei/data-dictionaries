@@ -1,0 +1,365 @@
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+html {
+    font-size: 16px;
+}
+
+@media screen and (min-width:321px) and (max-width:375px) {
+    html {
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width:376px) and (max-width:414px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width:415px) and (max-width:639px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Microsoft YaHei;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font: tahoma, arial, "Microsoft YaHei ", "\5b8b\4f53", sans-serif;
+}
+
+body {
+    color: #858585;
+    font-size: 16px;
+}
+
+em,
+i {
+    font-style: normal;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+ul,ol,li{list-style: none;}
+
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%;
+    outline: 1;
+}
+
+textarea {
+    resize: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+p,
+span,
+em,
+strong {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    font-size: 0;
+}
+
+.tl {
+    text-align: left;
+}
+
+.tc {
+    text-align: center;
+}
+
+.tr {
+    text-align: right;
+}
+
+.fl {
+    float: left;
+    display: inline;
+}
+
+.fr {
+    float: right;
+    display: inline;
+}
+
+.pr {
+    position: relative;
+}
+
+.pa {
+    position: absolute;
+}
+
+.fontYH {
+    font-family: "Microsoft YaHei,"\u5fae\u8f6f\u96c5\u9ed1",Microsoft JhengHei,"\u534e\u6587\u7ec6\u9ed1",STHeiti,MingLiu,Serif";
+}
+
+input,
+button,
+textarea,
+select {
+    border: none;
+    font-size: 100%;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.max_width {
+    width: 100%;
+}
+
+.max_height {
+    height: 100%;
+}
+
+.image_size {
+    background-size: 100%;
+    /*width: 100%;*/
+    background-position: center;
+    max-width: 100%;
+}
+
+.image_sm_size {
+    background-size: 50%;
+    width: 50%;
+    background-position: center;
+    max-width: 50%;
+}
+
+.box {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    box-pack: center;
+}
+
+.flex {
+    -webkit-display: flex;
+    -moz-display: flex;
+    display: flex;
+}
+
+::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+.transition {
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    transition: .3s ease;
+}
+
+.transition_s {
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.transition2 {
+    -webkit-transition: .4s cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    -moz-transition: .4s cubic-bezier(0.52, 1.64, 0.37, 0.66);
+    transition: .4s cubic-bezier(0.52, 1.64, 0.37, 0.66);
+}
+
+.bgc {
+    background-color: #FFF!important;
+}
+
+.icon {
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+.pd {
+    padding: 0 16.15%;
+}
+
+.fz_16 {
+    font-size: 16px;
+}
+
+.fz_14 {
+    font-size: 14px;
+}
+.fz_12 {
+    font-size: 12px;
+}
+.middle {
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.center {
+    vertical-align: middle;
+}
+
+.box-sizing {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+/*00000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
+
+/*角头栏 sss*/
+.corner-mark{height:20px;line-height: 20px;color:#858585;font-size: 12px;display:none;}
+.i-icon{width: 20px;height: 20px;display:inline-block;color:#939494;margin-right: 5px;}
+/*角头栏 end*/
+.fl{float:left;}
+.fr{float:right;}
+/*.wh-1{width:1%;}
+.wh-2{width:2%;}
+.wh-3{width:3%;}
+.wh-4{width:4%;}
+.wh-5{width:5%;}
+.wh-6{width:6%;}
+.wh-7{width:7%;}
+.wh-8{width:8%;}
+.wh-9{width:9%;}
+.wh-10{width:10%;}
+.wh-11{width:11%;}
+.wh-12{width:12%;}
+.wh-13{width:13%;}
+.wh-14{width:14%;}
+.wh-15{width:15%;}
+.wh-16{width:16%;}
+.wh-19{width:19%;}
+.wh-20{width:20%;}
+.wh-24{width:24%;}
+.wh-25{width:25%;}
+.wh-29{width:29%;}
+.wh-30{width:30%;}
+.wh-32{width:32%;}
+.wh-34{width:34%;}
+.wh-35{width:35%;}
+.wh-36{width:36%;}
+.wh-39{width:39%;}
+.wh-40{width:40%;}
+.wh-48{width:48%;}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
